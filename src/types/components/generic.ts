@@ -3,6 +3,7 @@ import { COLORS, DIMENSIONS, FONT_SIZES, SPACINGS } from "../../utils/tokens";
 export enum GenericComponentType {
     Primary = 'Primary',
     Secondary = 'Secondary',
+    SecondaryLight = 'SecondaryLight',
     Tertiary = 'Tertiary',
 }
 
@@ -26,6 +27,7 @@ export type GenericComponentSizeValues = [number, number, number];
 export const GenericComponentColorThemeMap: Record<GenericComponentType, GenericComponentColorThemeValues> = {
     [GenericComponentType.Primary]: [COLORS.primary, COLORS.primaryLight, COLORS.secondaryLight],
     [GenericComponentType.Secondary]: [COLORS.secondaryDark, COLORS.secondary, COLORS.secondaryLight],
+    [GenericComponentType.SecondaryLight]: [COLORS.secondaryLight, COLORS.secondary, COLORS.primary],
     [GenericComponentType.Tertiary]: [COLORS.tertiary, COLORS.tertiaryLight, COLORS.secondaryLight] 
 };
 
