@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Heading } from "native-base";
 
-import { SPACINGS } from '../../utils/tokens';
+import { FONT_SIZES, SPACINGS } from '../../utils/tokens';
 import Button from '../../components/buttons/Button';
 
 const WelcomeScreen = () => {
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     descriptionHeader: {
         paddingTop: SPACINGS.xsmall,
         fontWeight: 'bold',
-        fontSize: 24
+        fontSize: FONT_SIZES.large
     },
     descriptionText: {
-        fontSize: 16,
+        fontSize: FONT_SIZES.medium,
         fontWeight: 'bold',
     },
 })
