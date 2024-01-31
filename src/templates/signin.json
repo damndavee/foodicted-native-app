@@ -1,0 +1,8 @@
+{
+    "name": "SIGNIN",
+    "header": "Welcome Back 😊",
+    "ctaText": "Log In",
+    "fields": [],
+    "state": {},
+    "validators": {}
+}

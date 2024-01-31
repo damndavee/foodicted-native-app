@@ -1,0 +1,8 @@
+{
+    "name": "SIGNUP",
+    "header": "Create Account",
+    "ctaText": "Sign Up",
+    "fields": [],
+    "state": {},
+    "validators": {}
+}
