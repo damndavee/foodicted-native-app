@@ -2,6 +2,7 @@
   "expo": {
     "name": "foodicted-native-app",
     "slug": "foodicted-native-app",
+    "scheme": "foodicted",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
