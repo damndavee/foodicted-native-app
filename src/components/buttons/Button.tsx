@@ -32,7 +32,7 @@ const Button = (props: ButtonProps) => {
     }
 
     return (
-        <Pressable style={({ pressed }) => [styles.buttonContainer, getButtonStyles(pressed)]}>
+        <Pressable onPress={props.onPress} style={({ pressed }) => [styles.buttonContainer, getButtonStyles(pressed)]}>
             {({ pressed }) => (
                 <>
                     {props.leftIcon && (
