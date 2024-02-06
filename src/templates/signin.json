@@ -1,0 +1,9 @@
+{
+    "name": "Signin",
+    "header": "Welcome Back 😊",
+    "ctaText": "Log In",
+    "fields": ["email", "passowrd"],
+    "link": "Don't have account? Sign up for free!",
+    "state": {},
+    "validators": {}
+}

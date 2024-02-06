@@ -1,0 +1,9 @@
+{
+    "name": "Signup",
+    "header": "Create Account",
+    "ctaText": "Sign Up",
+    "fields": ["nickname", "email", "passowrd", "confirmPassword"],
+    "link": "Already have account? Sign in!",
+    "state": {},
+    "validators": {}
+}

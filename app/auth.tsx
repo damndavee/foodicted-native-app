@@ -1,39 +1,73 @@
-import { Link, router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Link, router, useLocalSearchParams } from 'expo-router';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Heading } from 'native-base';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Button from '../src/components/buttons/Button';
+import { useTemplateContext } from '../src/context/template';
+import { Templates } from '../src/types/template';
+import { SPACINGS } from '../src/utils/tokens';
 
 const AuthScreen = () => {
+    const { template, setTemplate } = useTemplateContext();
+
     const insets = useSafeAreaInsets();
     const params = useLocalSearchParams();
-    
-    const AUTHTYPEPLACEHOLDER = params.type === 'signup' ? 'SIGNUP' : 'SIGNIN';
 
-    const onClickyClick = () => {
-        console.log("PARMAS: ", params);
+    const BackgroundMap: Record<Partial<Templates>, any> = {
+        [Templates.Signin]: require('../assets/signin-screen.jpg'),
+        [Templates.Signup]: require('../assets/signup-screen.jpg'),
+    }
+    
+    // TODO: Loading spinner
+    if(!template) {
+        return;
+    }
+
+    const imageProps = {
+        style: [styles.imgBackground, { paddingTop: insets.top }],
+        source: BackgroundMap[template.name]
+    }
+
+    const switchAuthFormType = () => {
+        setTemplate(template.name === Templates.Signin ? Templates.Signup : Templates.Signin);
         router.setParams({type: params.type === 'signup' ? 'signin' : 'signup'});
     }
     
     return (
-        <View style={{paddingTop: insets.top}}>
-            <Heading alignSelf='center'>{AUTHTYPEPLACEHOLDER}</Heading>
-            <Text>AuthScreen</Text>
-            <Text>=========================</Text>
-            {AUTHTYPEPLACEHOLDER === 'SIGNUP' && <Text>NICKNAME</Text>}
-            <Text>EMAIL</Text>
-            <Text>PASSWORD</Text>
-            {AUTHTYPEPLACEHOLDER === 'SIGNUP' && <Text>CONFIRM PASSWORD</Text>}
-            <Text>=========================</Text>
-
-            <Link href="/"><Text>Go back!</Text></Link>
-            <Button label='Change auth type' onPress={() => onClickyClick()} size='Medium' type='Tertiary' variant='Filled' fullWidth />
-        </View>
+        <ImageBackground {...imageProps} resizeMode='cover' >
+            <View style={styles.innerContainer}>
+                <Heading size='2xl' color='white' maxWidth='1/2'>{template.header}</Heading>
+                <View style={styles.formContainer}>
+                    {template.fields.map((field: string) => <Text>{field}</Text>)}
+                    <Button fullWidth label={template.ctaText} onPress={() => console.log("IF VALIDATION PASSES, OPEN MODAL AVATAR SELECTION")} size='Medium' type='Primary' variant='Filled' />
+                 <Button label={template.link} onPress={switchAuthFormType} size='Medium' type='Tertiary' variant='Filled' fullWidth />
+                </View>
+            </View>
+        </ImageBackground>
     ) 
 }
 
 export default AuthScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    rootContainer: {
+        flex: 1,
+    },
+    imgBackground: {
+        width: '100%',
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+    innerContainer: {
+        height: '80%',
+        padding: SPACINGS.large
+    },
+    formContainer: {
+        width: '100%',
+        flex: 1,
+        justifyContent: 'flex-end',
+        gap: SPACINGS.xlarge,
+    }
+})
