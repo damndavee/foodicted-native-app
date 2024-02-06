@@ -17,6 +17,7 @@ export enum GenericComponentSize {
 export enum GenericComponentVariant {
     Outline = 'Outline',
     Filled = 'Filled',
+    Ghost = 'Ghost'
 }
 
 export enum GenericComponentColorThemeIndex { Active, Pressed, Color };

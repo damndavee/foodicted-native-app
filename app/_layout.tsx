@@ -1,7 +1,7 @@
 // HOME PAGE
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NativeBaseProvider } from 'native-base';
-import { Slot, Stack, usePathname } from 'expo-router';
+import { Stack, usePathname } from 'expo-router';
 
 import SplashScreen from '../src/screens/Splash';
 

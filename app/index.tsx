@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Heading } from "native-base";
-import { router } from "expo-router";
 
 import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
 import Button from '../src/components/buttons/Button';

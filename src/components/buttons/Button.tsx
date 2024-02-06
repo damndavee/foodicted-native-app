@@ -9,6 +9,7 @@ const Button = (props: ButtonProps) => {
 
     const getButtonStyles = (pressed: boolean, isText: boolean = false)  => {
         const isFilled = props.variant === GenericComponentVariant.Filled;
+        const isOutline = props.variant === GenericComponentVariant.Outline;
         const buttonWidth = props.fullWidth ? '100%' : 'auto' as DimensionValue;
         const color = GenericComponentColorThemeMap[props.type];
         const pressedColor = pressed ? color[GenericComponentColorThemeIndex.Pressed] : color[GenericComponentColorThemeIndex.Active];
@@ -23,8 +24,7 @@ const Button = (props: ButtonProps) => {
         return {
             backgroundColor: isFilled ? pressedColor : 'transparent',
             borderColor: isFilled ? 'transparent' : pressedColor,
-            borderWidth: isFilled ? 0 : 2,
-            borderRadius: 8,
+            borderWidth: isOutline ? 2 : 0,
             width: buttonWidth,
             paddingVertical: COMPONENT_SIZE[props.size][GenericComponentSizeIndex.Spacing],
             paddingHorizontal: 2 * COMPONENT_SIZE[props.size][GenericComponentSizeIndex.Spacing],
@@ -59,5 +59,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        alignSelf: 'center',
+        borderRadius: 8,
     }
 })

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link, router, useLocalSearchParams } from 'expo-router';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Heading } from 'native-base';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -13,7 +12,6 @@ const AuthScreen = () => {
     const { template, setTemplate } = useTemplateContext();
 
     const insets = useSafeAreaInsets();
-    const params = useLocalSearchParams();
 
     const BackgroundMap: Record<Partial<Templates>, any> = {
         [Templates.Signin]: require('../assets/signin-screen.jpg'),
@@ -32,7 +30,6 @@ const AuthScreen = () => {
 
     const switchAuthFormType = () => {
         setTemplate(template.name === Templates.Signin ? Templates.Signup : Templates.Signin);
-        router.setParams({type: params.type === 'signup' ? 'signin' : 'signup'});
     }
     
     return (
@@ -41,8 +38,8 @@ const AuthScreen = () => {
                 <Heading size='2xl' color='white' maxWidth='1/2'>{template.header}</Heading>
                 <View style={styles.formContainer}>
                     {template.fields.map((field: string) => <Text>{field}</Text>)}
-                    <Button fullWidth label={template.ctaText} onPress={() => console.log("IF VALIDATION PASSES, OPEN MODAL AVATAR SELECTION")} size='Medium' type='Primary' variant='Filled' />
-                 <Button label={template.link} onPress={switchAuthFormType} size='Medium' type='Tertiary' variant='Filled' fullWidth />
+                    <Button fullWidth label={template.ctaText} onPress={() => {}} size='Medium' type='Primary' variant='Filled' />
+                    <Button label={template.link} onPress={switchAuthFormType} size='Medium' type='Secondary' variant='Ghost' />
                 </View>
             </View>
         </ImageBackground>
