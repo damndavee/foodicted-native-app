@@ -5,12 +5,11 @@ import { router } from "expo-router";
 
 import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
 import Button from '../src/components/buttons/Button';
+import { useTemplateContext } from '../src/context/template';
+import { Templates } from '../src/types/template';
 
 const WelcomeScreen = () => {
-
-    const navigate = (pathname: string, params: any = {}) => {
-        router.navigate({pathname, params})
-    }
+    const templateContext = useTemplateContext();
 
     return (
         <ImageBackground source={require('../assets/welcome-screen.jpg')} resizeMode='cover' style={styles.rootContainer}>
@@ -25,8 +24,22 @@ const WelcomeScreen = () => {
                     </View>
                 </View>
                 <View style={{ gap: SPACINGS.big }}>
-                    <Button fullWidth onPress={() => navigate('/auth', {type: 'signin'})} size='Medium' type='SecondaryLight' variant='Filled' label='Sing In' />
-                    <Button fullWidth onPress={() => navigate('/auth', {type: 'signup'})} size='Medium' type='SecondaryLight' variant='Outline' label='Sign Up' />
+                    <Button 
+                        fullWidth 
+                        onPress={() => templateContext.navigateWithTemplate(Templates.Signin, '/auth')} 
+                        size='Medium' 
+                        type='SecondaryLight' 
+                        variant='Filled' 
+                        label='Sing In' 
+                    />
+                    <Button 
+                        fullWidth 
+                        onPress={() => templateContext.navigateWithTemplate(Templates.Signup, '/auth')} 
+                        size='Medium' 
+                        type='SecondaryLight' 
+                        variant='Outline' 
+                        label='Sign Up' 
+                    />
                 </View>
             </View>
         </ImageBackground>
