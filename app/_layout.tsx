@@ -1,7 +1,8 @@
 // HOME PAGE
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NativeBaseProvider } from 'native-base';
-import { Slot, Stack, usePathname } from 'expo-router';
+import { Stack } from 'expo-router';
+import { StatusBar, StatusBarStyle } from "expo-status-bar"
 
 import SplashScreen from '../src/screens/Splash';
 
@@ -9,8 +10,13 @@ import useImageLoader from '../src/hooks/useImageLoader';
 import { TemplateContextProvider } from '../src/context/template';
 
 export function RootNavigation() {
+  const statusBar = {
+    statusBarStyle: 'dark'  as StatusBarStyle,
+    statusBarColor:  '#FAE6CD',
+  }
+
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={{headerShown: false, ...statusBar}}>
       <Stack.Screen name="auth" />
       <Stack.Screen name="index" />
     </Stack>
@@ -18,16 +24,12 @@ export function RootNavigation() {
 }
 
 export default function RootLayout() {
-
-  const path = usePathname();
-
-  console.log("PATH NAME: ", path);
-
   const [imagesLoaded] = useImageLoader([
     require('../assets/splash-icon.png'),
     require('../assets/welcome-screen.jpg'),
     require('../assets/signin-screen.jpg'),
     require('../assets/signup-screen.jpg'),
+    require('../assets/welcome-screen-alt.png'),
   ]);
 
   return (
@@ -35,6 +37,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <NativeBaseProvider>
           <TemplateContextProvider>
+            <StatusBar animated={true} style="dark" />
             <RootNavigation />
           </TemplateContextProvider>
         </NativeBaseProvider>
