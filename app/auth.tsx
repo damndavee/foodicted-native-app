@@ -1,22 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { StyleSheet, View, ImageBackground, ImageResizeMode } from 'react-native';
 import { Heading } from 'native-base';
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Button from '../src/components/buttons/Button';
 import { useTemplateContext } from '../src/context/template';
 import { Templates } from '../src/types/template';
-import { SPACINGS } from '../src/utils/tokens';
+import { COLORS, SPACINGS } from '../src/utils/tokens';
+import FormInput from '../src/components/form/FormInput';
+import { FormInputProps } from '../src/types/components/FormInput';
 
 const AuthScreen = () => {
     const { template, setTemplate } = useTemplateContext();
-
-    const insets = useSafeAreaInsets();
-
-    const BackgroundMap: Record<Partial<Templates>, any> = {
-        [Templates.Signin]: require('../assets/signin-screen.jpg'),
-        [Templates.Signup]: require('../assets/signup-screen.jpg'),
-    }
     
     // TODO: Loading spinner
     if(!template) {
@@ -24,25 +18,65 @@ const AuthScreen = () => {
     }
 
     const imageProps = {
-        style: [styles.imgBackground, { paddingTop: insets.top }],
-        source: BackgroundMap[template.name]
+        style: [styles.imgBackground],
+        source: require('../assets/auth-screen-alt.png'),
+        resizeMode: 'cover' as ImageResizeMode
     }
 
     const switchAuthFormType = () => {
         setTemplate(template.name === Templates.Signin ? Templates.Signup : Templates.Signin);
     }
+
+    const renderForm = () => {
+        const { fields } = template;
+
+        // TODO: for isValid prop, validation has to be added.
+
+        return fields.map((field: FormInputProps) => {
+            return (
+                <FormInput 
+                    errorMessage="This is Error placeholder message just to check potential length of the error message container" 
+                    key={field.id} 
+                    id={field.id} 
+                    isValid 
+                    onChange={() => {}} 
+                    placeholder={field.placeholder} 
+                    type={field.type} 
+                    variant={field.variant} 
+                    icon={field.icon} 
+                />
+            )
+        })
+    }
     
     return (
-        <ImageBackground {...imageProps} resizeMode='cover' >
-            <View style={styles.innerContainer}>
-                <Heading size='2xl' color='white' maxWidth='1/2'>{template.header}</Heading>
-                <View style={styles.formContainer}>
-                    {template.fields.map((field: string) => <Text>{field}</Text>)}
-                    <Button fullWidth label={template.ctaText} onPress={() => {}} size='Medium' type='Primary' variant='Filled' />
-                    <Button label={template.link} onPress={switchAuthFormType} size='Medium' type='Secondary' variant='Ghost' />
+        <View style={[styles.rootContainer]}>
+            <ImageBackground {...imageProps} >
+                <View style={styles.innerContainer}>
+                    <Heading pl={5} size='2xl' color={COLORS.primary} maxWidth='2/3'>{template.header}</Heading>
+                    <View style={styles.formContainer}>
+                        {renderForm()}
+                    </View>
+                    <View>
+                        <Button 
+                            fullWidth 
+                            label={template.ctaText} 
+                            onPress={() => {}} 
+                            size='Medium' 
+                            type='Secondary' 
+                            variant='Filled' 
+                        />
+                        <Button 
+                            label={template.link} 
+                            onPress={switchAuthFormType} 
+                            size='Medium' 
+                            type='Tertiary' 
+                            variant='Ghost' 
+                        />
+                    </View>
                 </View>
-            </View>
-        </ImageBackground>
+            </ImageBackground>
+        </View>
     ) 
 }
 
@@ -58,13 +92,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     innerContainer: {
-        height: '80%',
-        padding: SPACINGS.large
+        height: '90%',
+        padding: SPACINGS.large,
+        justifyContent: 'space-between'
     },
     formContainer: {
         width: '100%',
-        flex: 1,
-        justifyContent: 'flex-end',
-        gap: SPACINGS.xlarge,
-    }
+        gap: SPACINGS.xlarge + 5,
+    },
 })
