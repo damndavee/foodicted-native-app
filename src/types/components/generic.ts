@@ -1,9 +1,12 @@
+import { Ionicons } from "@expo/vector-icons"
+
 import { COLORS, DIMENSIONS, FONT_SIZES, SPACINGS } from "../../utils/tokens";
+
+export type Icon = keyof typeof Ionicons.glyphMap;
 
 export enum GenericComponentType {
     Primary = 'Primary',
     Secondary = 'Secondary',
-    SecondaryLight = 'SecondaryLight',
     Tertiary = 'Tertiary',
 }
 
@@ -17,8 +20,12 @@ export enum GenericComponentSize {
 export enum GenericComponentVariant {
     Outline = 'Outline',
     Filled = 'Filled',
-    Ghost = 'Ghost'
+    Ghost = 'Ghost',
+    Underline = 'Underline',
 }
+
+export type TempComponentVariant = keyof typeof GenericComponentVariant;
+export type ExcludeComponentVariant<T extends TempComponentVariant> = Exclude<TempComponentVariant, T>;
 
 export enum GenericComponentColorThemeIndex { Active, Pressed, Color };
 export enum GenericComponentSizeIndex { FontSize, Spacing, Dimension };
@@ -27,9 +34,8 @@ export type GenericComponentSizeValues = [number, number, number];
 
 export const GenericComponentColorThemeMap: Record<GenericComponentType, GenericComponentColorThemeValues> = {
     [GenericComponentType.Primary]: [COLORS.primary, COLORS.primaryLight, COLORS.secondaryLight],
-    [GenericComponentType.Secondary]: [COLORS.secondaryDark, COLORS.secondary, COLORS.secondaryLight],
-    [GenericComponentType.SecondaryLight]: [COLORS.secondaryLight, COLORS.secondary, COLORS.primary],
-    [GenericComponentType.Tertiary]: [COLORS.tertiary, COLORS.tertiaryLight, COLORS.secondaryLight] 
+    [GenericComponentType.Secondary]: [COLORS.secondary, COLORS.secondaryLight, COLORS.secondaryDark],
+    [GenericComponentType.Tertiary]: [COLORS.tertiary, COLORS.tertiaryLight, COLORS.secondaryLight],
 };
 
 export const COMPONENT_SIZE: Record<GenericComponentSize, GenericComponentSizeValues> = {
