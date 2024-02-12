@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, Pressable, DimensionValue, View } from 'react-native';
 
 import { ButtonProps } from '../../types/components/Button';
@@ -26,8 +26,9 @@ const Button = (props: ButtonProps) => {
             borderColor: isFilled ? 'transparent' : pressedColor,
             borderWidth: isOutline ? 2 : 0,
             width: buttonWidth,
-            paddingVertical: COMPONENT_SIZE[props.size][GenericComponentSizeIndex.Spacing],
-            paddingHorizontal: 2 * COMPONENT_SIZE[props.size][GenericComponentSizeIndex.Spacing],
+            paddingVertical: props.dense ? 0 : COMPONENT_SIZE[props.size][GenericComponentSizeIndex.Spacing],
+            paddingHorizontal: props.dense ? 0 : 2 * COMPONENT_SIZE[props.size][GenericComponentSizeIndex.Spacing],
+            alignSelf: props.selfAlignment || 'flex-start'
         }
     }
 
@@ -59,7 +60,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'center',
         borderRadius: 8,
     }
 })

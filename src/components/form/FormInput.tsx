@@ -43,7 +43,9 @@ const FormInput = (props: FormInputProps) => {
     onChangeText: props.onChange.bind(this, props.id),
     placeholder: props.placeholder,
     placeholderTextColor: props.variant === "Filled" ? "lightText" : COLORS.secondaryDark,
-    leftElement: renderLeftInputElement()
+    leftElement: renderLeftInputElement(),
+    type: props.type,
+    value: props.value
   }
 
   return (
