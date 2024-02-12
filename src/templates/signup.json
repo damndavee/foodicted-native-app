@@ -33,6 +33,11 @@
         }
     ],
     "link": "Already have account? Sign in!",
-    "state": {},
+    "state": {
+        "email": "",
+        "nickname": "",
+        "password": "",
+        "confirmPassowrd": ""
+    },
     "validators": {}
 }

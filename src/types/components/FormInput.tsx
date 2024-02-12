@@ -7,8 +7,9 @@ export interface FormInputProps {
     id: string;
     errorMessage: string;
     placeholder: string;
+    value: string;
     variant: ExcludeComponentVariant<'Ghost'>;
-    onChange: () => void;
+    onChange: (id: string, enteredValue: string | number | boolean) => void;
     label?: string;
     inputProps?: object;
     icon?: Icon;

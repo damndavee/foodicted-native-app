@@ -1,3 +1,4 @@
+import { FlexAlignType } from 'react-native/types';
 import { GenericComponentSize, GenericComponentType, Icon, ExcludeComponentVariant } from './generic';
 
 
@@ -11,4 +12,6 @@ export interface ButtonProps {
     leftIcon?: Icon;
     rightIcon?: Icon;
     flex?: 0 | 1;
+    selfAlignment?: FlexAlignType;
+    dense?: boolean;
 }

@@ -3,14 +3,19 @@ import { StyleSheet, View, ImageBackground, ImageResizeMode } from 'react-native
 import { Heading } from 'native-base';
 
 import Button from '../src/components/buttons/Button';
-import { useTemplateContext } from '../src/context/template';
-import { Templates } from '../src/types/template';
-import { COLORS, SPACINGS } from '../src/utils/tokens';
 import FormInput from '../src/components/form/FormInput';
+import { useTemplateContext } from '../src/context/template';
+import { COLORS, SPACINGS } from '../src/utils/tokens';
+import useForm from '../src/hooks/useForm';
+
+import { Templates } from '../src/types/template';
 import { FormInputProps } from '../src/types/components/FormInput';
+import { Form } from '../src/types/auth/form';
+import FormFooter from '../src/components/form/FormFooter';
 
 const AuthScreen = () => {
     const { template, setTemplate } = useTemplateContext();
+    const { handleChange, handleSubmit, handleClearForm, userData } = useForm();
     
     // TODO: Loading spinner
     if(!template) {
@@ -24,6 +29,7 @@ const AuthScreen = () => {
     }
 
     const switchAuthFormType = () => {
+        handleClearForm();
         setTemplate(template.name === Templates.Signin ? Templates.Signup : Templates.Signin);
     }
 
@@ -34,12 +40,13 @@ const AuthScreen = () => {
 
         return fields.map((field: FormInputProps) => {
             return (
-                <FormInput 
+                <FormInput
+                    value={userData[field.id as keyof Form]}
                     errorMessage="This is Error placeholder message just to check potential length of the error message container" 
                     key={field.id} 
                     id={field.id} 
                     isValid 
-                    onChange={() => {}} 
+                    onChange={handleChange} 
                     placeholder={field.placeholder} 
                     type={field.type} 
                     variant={field.variant} 
@@ -56,12 +63,13 @@ const AuthScreen = () => {
                     <Heading pl={5} size='2xl' color={COLORS.primary} maxWidth='2/3'>{template.header}</Heading>
                     <View style={styles.formContainer}>
                         {renderForm()}
+                        <FormFooter templateName={template.name} />
                     </View>
                     <View>
                         <Button 
                             fullWidth 
                             label={template.ctaText} 
-                            onPress={() => {}} 
+                            onPress={handleSubmit} 
                             size='Medium' 
                             type='Secondary' 
                             variant='Filled' 
@@ -71,7 +79,8 @@ const AuthScreen = () => {
                             onPress={switchAuthFormType} 
                             size='Medium' 
                             type='Tertiary' 
-                            variant='Ghost' 
+                            variant='Ghost'
+                            selfAlignment='center'
                         />
                     </View>
                 </View>

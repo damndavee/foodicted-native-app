@@ -19,6 +19,9 @@
         }
     ],
     "link": "Don't have account? Sign up for free!",
-    "state": {},
+    "state": {
+        "email": "",
+        "password": ""
+    },
     "validators": {}
 }
