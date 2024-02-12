@@ -1,8 +1,14 @@
 import { Ionicons } from "@expo/vector-icons"
+import { ViewStyle, TextStyle, ImageStyle } from "react-native";
 
 import { COLORS, DIMENSIONS, FONT_SIZES, SPACINGS } from "../../utils/tokens";
 
 export type Icon = keyof typeof Ionicons.glyphMap;
+
+
+export interface StyleProps {
+    [key: string]: ViewStyle | TextStyle | ImageStyle | any;
+  }
 
 export enum GenericComponentType {
     Primary = 'Primary',
