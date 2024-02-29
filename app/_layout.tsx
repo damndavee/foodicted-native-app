@@ -1,4 +1,5 @@
-// HOME PAGE
+import { Provider } from "react-redux";
+import * as WebBrowser from "expo-web-browser";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NativeBaseProvider } from 'native-base';
 import { Stack } from 'expo-router';
@@ -8,6 +9,9 @@ import SplashScreen from '../src/screens/Splash';
 
 import useImageLoader from '../src/hooks/useImageLoader';
 import { TemplateContextProvider } from '../src/context/template';
+import { store } from "../src/store";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export function RootNavigation() {
   const statusBar = {
@@ -30,15 +34,17 @@ export default function RootLayout() {
     require('../assets/signin-screen.jpg'),
     require('../assets/signup-screen.jpg'),
     require('../assets/welcome-screen-alt.png'),
-  ]);
+  ]);  
 
   return (
     <SplashScreen isLoaded={imagesLoaded!}>
       <SafeAreaProvider>
         <NativeBaseProvider>
           <TemplateContextProvider>
-            <StatusBar animated={true} style="dark" />
-            <RootNavigation />
+            <Provider store={store}>
+              <StatusBar animated={true} style="dark" />
+              <RootNavigation />
+            </Provider>
           </TemplateContextProvider>
         </NativeBaseProvider>
       </SafeAreaProvider>
