@@ -2,7 +2,7 @@
   "expo": {
     "name": "foodicted-native-app",
     "slug": "foodicted-native-app",
-    "scheme": "foodicted",
+    "scheme": "foodicted-native-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,10 +22,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.foodictednativeapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0e10572d-d2df-4b4a-b5cd-1c9bb2bdeda7"
+      }
     }
   }
 }

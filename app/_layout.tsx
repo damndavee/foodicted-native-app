@@ -1,4 +1,5 @@
 import { Provider } from "react-redux";
+import * as WebBrowser from "expo-web-browser";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NativeBaseProvider } from 'native-base';
 import { Stack } from 'expo-router';
@@ -9,6 +10,8 @@ import SplashScreen from '../src/screens/Splash';
 import useImageLoader from '../src/hooks/useImageLoader';
 import { TemplateContextProvider } from '../src/context/template';
 import { store } from "../src/store";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export function RootNavigation() {
   const statusBar = {
@@ -25,7 +28,6 @@ export function RootNavigation() {
 }
 
 export default function RootLayout() {
-
   const [imagesLoaded] = useImageLoader([
     require('../assets/splash-icon.png'),
     require('../assets/welcome-screen.jpg'),

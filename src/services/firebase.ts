@@ -1,4 +1,4 @@
-import { UserCredential, createUserWithEmailAndPassword, onAuthStateChanged,signInWithEmailAndPassword, signOut, User } from "firebase/auth";
+import { UserCredential, createUserWithEmailAndPassword, onAuthStateChanged,signInWithEmailAndPassword, signOut, User, GoogleAuthProvider, signInWithCredential, AuthCredential } from "firebase/auth";
 import { auth, db } from '../../firebaseConfig';
 import { getDoc, doc, setDoc, QueryDocumentSnapshot } from "firebase/firestore";
 import { AdditionalUserData, AuthUserDocumentData, UserSnapshotData } from "../types/auth";
@@ -40,6 +40,10 @@ export const getCurrentUser = (): Promise<User | null> => {
 };
 export const signOutUser = async () => await signOut(auth);
 
+export const generateGoogleCredentials = (idToken: string) => GoogleAuthProvider.credential(idToken);
+
+export const signInWithExternalCredentials = (credential: AuthCredential) => signInWithCredential(auth, credential);
+ 
 export const signInAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   return await signInWithEmailAndPassword(auth, email, password);
 }
